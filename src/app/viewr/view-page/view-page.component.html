@@ -1,0 +1,58 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Viewer</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <table mat-table [dataSource]="elements" class="custom-table">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="creationDate">
+        <th mat-header-cell *matHeaderCellDef> Creation Date </th>
+        <td mat-cell *matCellDef="let element"> {{element.creationDate | date:'short'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="completionDate">
+        <th mat-header-cell *matHeaderCellDef> Completion Date </th>
+        <td mat-cell *matCellDef="let element"> {{element.completionDate | date:'short'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let element; let i = index">
+          <button mat-icon-button (click)="moveElementUp(i)" (click)="$event.stopPropagation()">
+            <mat-icon>arrow_upward</mat-icon>
+          </button>
+          <button mat-icon-button (click)="moveElementDown(i)" (click)="$event.stopPropagation()">
+            <mat-icon>arrow_downward</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openPopup(row)"></tr>
+    </table>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="navigateToEditor()">Go to Editor</button>
+  </mat-card-actions>
+</mat-card>
+
+<div *ngIf="showPopup" class="popup">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Element Details</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p><strong>Name:</strong> {{ selectedElement.name }}</p>
+      <p><strong>Creation Date:</strong> {{ selectedElement.creationDate | date:'short' }}</p>
+      <p><strong>Completion Date:</strong> {{ selectedElement.completionDate | date:'short' }}</p>
+      <p><strong>Description:</strong> {{ selectedElement.description }}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button (click)="closePopup()">Close</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

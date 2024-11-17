@@ -1,0 +1,56 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Editor</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <button mat-raised-button color="primary" (click)="openPopup()">Add Element</button>
+    <div class="element-list">
+      <div *ngFor="let element of elements; let i = index" class="element-item">
+        <div class="element-header">
+          <!-- <mat-icon>description</mat-icon> -->
+          <div class="element-title">{{ element.name }}</div>
+          <div class="element-date">{{ element.creationDate | date:'short' }}</div>
+        </div>
+        <div class="element-description">{{ element.description }}</div>
+        <div class="element-actions">
+          <button mat-button (click)="copyElement(i)">Copy</button>
+          <button mat-button color="warn" (click)="deleteElement(i)">Delete</button>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="navigateToViewer()">Go to Viewer</button>
+  </mat-card-actions>
+</mat-card>
+
+<div *ngIf="showPopup" class="popup">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Add Element</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="elementForm">
+        <mat-form-field appearance="fill">
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name" placeholder="Name">
+          <mat-error *ngIf="elementForm.get('name')?.invalid && elementForm.get('name')?.touched">
+            Name is required and must contain only letters and numbers without spaces.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Completion Date</mat-label>
+          <input matInput formControlName="completionDate" type="datetime-local" placeholder="Completion Date">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Description</mat-label>
+          <textarea matInput formControlName="description" placeholder="Description"></textarea>
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="addElement()">Add</button>
+      <button mat-raised-button (click)="closePopup()">Cancel</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

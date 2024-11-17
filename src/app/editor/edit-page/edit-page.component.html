@@ -1,4 +1,5 @@
-<mat-card>
+<div class="full-height">
+<mat-card class="full-height-card">
   <mat-card-header>
     <mat-card-title>Editor</mat-card-title>
   </mat-card-header>
@@ -7,7 +8,6 @@
     <div class="element-list">
       <div *ngFor="let element of elements; let i = index" class="element-item">
         <div class="element-header">
-          <!-- <mat-icon>description</mat-icon> -->
           <div class="element-title">{{ element.name }}</div>
           <div class="element-date">{{ element.creationDate | date:'short' }}</div>
         </div>
@@ -23,6 +23,7 @@
     <button mat-raised-button color="primary" (click)="navigateToViewer()">Go to Viewer</button>
   </mat-card-actions>
 </mat-card>
+</div>
 
 <div *ngIf="showPopup" class="popup">
   <mat-card>
@@ -35,7 +36,7 @@
           <mat-label>Name</mat-label>
           <input matInput formControlName="name" placeholder="Name">
           <mat-error *ngIf="elementForm.get('name')?.invalid && elementForm.get('name')?.touched">
-            Name is required and must contain only letters and numbers without spaces.
+            Name is required and must contain only letters without spaces.
           </mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill">

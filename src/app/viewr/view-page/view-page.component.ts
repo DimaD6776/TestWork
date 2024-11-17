@@ -26,7 +26,7 @@ export class ViewerComponent implements OnInit {
   elements: any[] = [];
   showPopup = false;
   selectedElement: any;
-  displayedColumns: string[] = ['name', 'creationDate', 'completionDate', 'actions'];
+  displayedColumns: string[] = ['name', 'creationDate', 'actions'];
 
   constructor(private elementService: ElementService, private router: Router) { }
 

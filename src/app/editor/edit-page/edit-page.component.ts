@@ -24,7 +24,7 @@ export class EditorComponent implements OnInit {
 
   constructor(private elementService: ElementService, private router: Router, private fb: FormBuilder) {
     this.elementForm = this.fb.group({
-      name: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9а-яА-ЯёЁ]+$/)]],
+      name: ['', [Validators.required, Validators.pattern(/^[a-zA-Zа-яА-ЯёЁ]+$/)]],
       creationDate: [new Date()],
       completionDate: [new Date()],
       description: ['']
